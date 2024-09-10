@@ -18,17 +18,17 @@ int check(int x1, int y1, int r1, int x2, int y2, int r2) {
 int main() {
 	int x1, y1, r1 = 0, x2, y2, r2 = 0;
 	printf("Enter information about the first circle: ");
-	while (r1 == 0) {
+	while (r1 <= 0) {
 		scanf_s("%d%d%d", &x1, &y1, &r1);
-		if (r1 == 0) {
-			printf("Error! Radius can't be equal to 0. Please enter correct information.\n");
+		if (r1 <= 0) {
+			printf("Error! Radius can't be 0 or less. Please enter correct information.\n");
 		}
 	}
 	printf("Enter information about the second circle: ");
-	while (r2 == 0) {
+	while (r2 <= 0) {
 		scanf_s("%d%d%d", &x2, &y2, &r2);
-		if (r2 == 0) {
-			printf("Error! Radius can't be equal to 0. Please enter correct information.\n");
+		if (r2 <= 0) {
+			printf("Error! Radius can't be 0 or less. Please enter correct information.\n");
 		}
 	}
 	switch (check(x1, y1, r1, x2, y2, r2)) {
