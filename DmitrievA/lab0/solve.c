@@ -20,31 +20,34 @@ int main()
     printf("\nВведите длину радиуса второй окружности: ");
 	scanf("%lf", &r2);
     printf("\n");
-	double d = fabs(x1-x2)*fabs(x1-x2) + fabs(y1-y2)*fabs(y1-y2);
+	double d = (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2);
     double sd = sqrt(d);
     //printf("%lf %lf %lf", d + delta, (r1+r2)*(r1+r2), d - delta);
-    if (d > (r1+r2)*(r1+r2)){
+    if ((r1 == r2) && (x1 == x2) && (y1 == y2)){
+        printf("окружности одинаковы");
+    }
+    else if (d > (r1+r2)*(r1+r2)){
         printf("окружности не пересекаются");
     }
-    else if ((d + delta >= (r1+r2)*(r1+r2)) && (d - 0.0000000000000001 <= (r1+r2)*(r1+r2))){
+    else if (fabs(d - (r1+r2)*(r1+r2)) <= delta){
         double x3, y3;
         if (x1 > x2){
-            x3 = x1 - r1*fabs(x1-x2)/sd;
+            x3 = x1 - r1*(x1-x2)/sd;
         }
         else{
-            x3 = x1 + r1*fabs(x1-x2)/sd;
+            x3 = x1 + r1*(x2-x1)/sd;
         }
         if (y1 > y2){
-            y3 = y1 - r1*fabs(y1-y2)/sd;
+            y3 = y1 - r1*(y1-y2)/sd;
         }
         else{
-            y3 = y1 + r1*fabs(y1-y2)/sd;
+            y3 = y1 + r1*(y2-y1)/sd;
         }
         printf("окружности касаются друг друга внешним образом в точке (%lf, %lf)", x3, y3);
     }
-    else if (d - delta > fabs(r1-r2)*fabs(r1-r2)) {
+    else if (d - delta > (r1-r2)*(r1-r2)) {
         double b = (r1*r1 + sd*sd - r2*r2)/(2*sd);
-        double c = sqrt((double)(r1*r1)-b*b);
+        double c = sqrt((r1*r1)-b*b);
         double sind = (y1-y2)/sd;
         double cosd = (x1-x2)/sd;
         double x3 = x1 - cosd*b - sind*c;
@@ -53,19 +56,19 @@ int main()
         double y4 = y1 - sind*b - cosd*c;
         printf("окружности пересекаются в двух точках: (%lf, %lf), (%lf, %lf)", x3, y3, x4, y4);
     }
-    else if ((d + delta >= fabs(r1-r2)*fabs(r1-r2)) && (d - delta <= fabs(r1-r2)*fabs(r1-r2))){
+    else if (fabs(d - (r1-r2)*(r1-r2)) <= delta){
         double x3, y3;
         if (x1 > x2){
-            x3 = x1 - r1*fabs(x1-x2)/sd;
+            x3 = x1 - r1*(x1-x2)/sd;
         }
         else{
-            x3 = x1 + r1*fabs(x1-x2)/sd;
+            x3 = x1 + r1*(x2-x1)/sd;
         }
         if (y1 > y2){
-            y3 = y1 - r1*fabs(y1-y2)/sd;
+            y3 = y1 - r1*(y1-y2)/sd;
         }
         else{
-            y3 = y1 + r1*fabs(y1-y2)/sd;
+            y3 = y1 + r1*(y2-y1)/sd;
         }
         printf("окружности касаются друг друга внутренним образом в точке (%lf, %lf)", x3, y3);
     }
