@@ -5,6 +5,7 @@
 
 int main()
 {
+    const double delta = 0.000000000000001;
 	double x1, x2, y1, y2, r1, r2;
     printf("Введите координату x центра первой окружности: ");
 	scanf("%lf", &x1);
@@ -21,10 +22,11 @@ int main()
     printf("\n");
 	double d = fabs(x1-x2)*fabs(x1-x2) + fabs(y1-y2)*fabs(y1-y2);
     double sd = sqrt(d);
+    //printf("%lf %lf %lf", d + delta, (r1+r2)*(r1+r2), d - delta);
     if (d > (r1+r2)*(r1+r2)){
         printf("окружности не пересекаются");
     }
-    else if (d == (r1+r2)*(r1+r2)){
+    else if ((d + delta >= (r1+r2)*(r1+r2)) && (d - 0.0000000000000001 <= (r1+r2)*(r1+r2))){
         double x3, y3;
         if (x1 > x2){
             x3 = x1 - r1*fabs(x1-x2)/sd;
@@ -40,7 +42,7 @@ int main()
         }
         printf("окружности касаются друг друга внешним образом в точке (%lf, %lf)", x3, y3);
     }
-    else if (d > fabs(r1-r2)*fabs(r1-r2)) {
+    else if (d - delta > fabs(r1-r2)*fabs(r1-r2)) {
         double b = (r1*r1 + sd*sd - r2*r2)/(2*sd);
         double c = sqrt((double)(r1*r1)-b*b);
         double sind = (y1-y2)/sd;
@@ -51,7 +53,7 @@ int main()
         double y4 = y1 - sind*b - cosd*c;
         printf("окружности пересекаются в двух точках: (%lf, %lf), (%lf, %lf)", x3, y3, x4, y4);
     }
-    else if (d == fabs(r1-r2)*fabs(r1-r2)){
+    else if ((d + delta >= fabs(r1-r2)*fabs(r1-r2)) && (d - delta <= fabs(r1-r2)*fabs(r1-r2))){
         double x3, y3;
         if (x1 > x2){
             x3 = x1 - r1*fabs(x1-x2)/sd;
