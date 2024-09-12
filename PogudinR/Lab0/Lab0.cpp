@@ -17,7 +17,7 @@ int main()
     pow2 = pow((y1 - y2), 2.0);
 
     distance = sqrt(pow1 + pow2);
-    if (r1 > 0 and r2 > 0) {
+    if (r1 > 0 && r2 > 0) {
         if (distance < fabs(r1 - r2)) {
             printf("Окружности не пересекаются\n");
         }
