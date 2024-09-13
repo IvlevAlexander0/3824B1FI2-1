@@ -18,7 +18,10 @@ int main()
 
     distance = sqrt(pow1 + pow2);
     if (r1 > 0 && r2 > 0) {
-        if (distance < fabs(r1 - r2)) {
+        if (x1 == x2 && y1 == y2 && r1 == r2) {
+            printf("Окружности совпадают\n");
+        }
+        else if (distance < fabs(r1 - r2)) {
             printf("Окружности не пересекаются\n");
         }
         else if (distance == fabs(r1 - r2)) {
@@ -37,4 +40,6 @@ int main()
     else {
         printf("Ошибка: Введен нулевой радиус");
     }
+    return 1;
 }
+
