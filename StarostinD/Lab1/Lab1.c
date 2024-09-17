@@ -28,7 +28,7 @@ int main() {
 	if (x0 > 8 || x0 < 1 || y0 < 'a' || y0 > 'h') {
 		if (y0 < 'a' || y0 > 'h') {
 			if (y0 >= 'A' && y0 <= 'H') {
-				y0 = y0 + ('a' - 'A');
+				y0 += ('a' - 'A');
 			}
 			else {
 				printf("Error\n");
@@ -45,7 +45,7 @@ int main() {
 	if (x1 > 8 || x1 < 1 || y1 < 'a' || y1 > 'h') {
 		if (y1 < 'a' || y1 > 'h') {
 			if (y1 >= 'A' && y1 <= 'H') {
-				y1 = y1 + ('a' - 'A');
+				y1 += ('a' - 'A');
 			}
 			else {
 				printf("Error\n");
