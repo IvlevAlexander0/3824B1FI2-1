@@ -1,4 +1,3 @@
-#include <iostream>
 #include <stdio.h>
 #include <math.h>
 int main()
@@ -25,10 +24,11 @@ int main()
             printf("They touch each other.");
         }
         else {
-            printf("They don't each other.");
+            printf("They don't touch each other.");
         }
     }
     else {
         printf("Error. Input valid numbers.");
     }
+    return 0;
 }
