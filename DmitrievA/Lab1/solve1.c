@@ -2,25 +2,25 @@
 
 void main(){
     double h, d, w, p_dsp, p_dvp;
-    printf("Введите высоту (в см): ");
+    printf("Input height (in sm): ");
     scanf("%lf", &h);
-    if (h > 220 || h < 180){
-        printf("Неверное значение высоты");
-        return;
+    while (h > 220 || h < 180){
+        printf("Incorrect value. Input value between 180 and 220: ");
+        scanf("%lf", &h);
     }
     h /= 100;
-    printf("Введите глубину (в см):");
+    printf("Input depth (in sm):");
     scanf("%lf", &d);
-    if (d < 50 || d > 90){
-        printf("Неверное значение глубины");
-        return;
+    while (d < 50 || d > 90){
+        printf("Incorrect value. Input value between 50 and 90: ");
+        scanf("%lf", &d);
     }
     d /= 100;
-    printf("Введите ширину (в см)");
+    printf("Input width (in sm):");
     scanf("%lf", &w);
-    if ( w < 80 || w > 120){
-        printf("");
-        return;
+    while ( w < 80 || w > 120){
+        printf("Incorrect value. Input value between 80 and 120: ");
+        scanf("%lf", &w);
     }
     p_dsp = 1;
     p_dvp = 1;
