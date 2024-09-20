@@ -11,7 +11,9 @@ int main() {
 		if ((h < 180) || (h > 220) || (w < 80) || (w > 120) || (d < 50) || (d > 90)) {
 			printf("Uncorrect data\n");
 		}
-	} while ((h < 180) || (h > 220) || (w < 80) || (w > 120) || (d < 50) || (d > 90));
+		char c;
+		while ((c = getchar()) != '\n' && c != EOF) {}
+	} while ((h < 180) || (h > 220) || (w < 80) || (w > 120) || (d < 50) || (d > 90)); // still didn't get how to use "flag" :)
 	
 	m_back = h * w * 0.5 * dvp;
 	m_sides = h * d * 1.5 * dsp * 2;
