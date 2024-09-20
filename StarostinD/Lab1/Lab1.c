@@ -7,15 +7,7 @@ int main() {
 	int x0 = -1, x1 = -1;
 	char y0 = ' ', y1 = ' ';
 	enum PIECES fg;
-	char pieces[5][6] = { "King  ", "Queen ", "Rook  ", "Bishop", "Knight" };
-	printf("List of pieces:\n");
-	for (int i = 0; i < 5; ++i) {
-		printf("%d. ", i + 1);
-		for (int j = 0; j < 6; ++j) {
-			printf("%c", pieces[i][j]);
-		}
-		printf("\t");
-	}
+	printf("List of pieces:\n1. King \t 2. Queen \t 3. Rook \t 4. Bishop \t 5. Knight");
 	printf("\nSelect a chess piece by writing its number: ");
 	scanf_s("%d", &fg);
 	if (fg < 1 || fg > 5) {
@@ -60,7 +52,7 @@ int main() {
 	printf("\n");
 	short flag = 0;
 	switch (fg) {
-	case(0):
+	case(King):
 		if (fabs(x1 - x0) <= 1 && fabs(y1 - y0) <= 1) {
 			printf("You can do this move\n");
 		}
@@ -68,7 +60,7 @@ int main() {
 			flag++;
 		}
 		break;
-	case(1):
+	case(Queen):
 		if ((fabs(x1 - x0) <= 1 && fabs(y1 - y0) <= 1) || (y1 - y0 == 0 || x1 - x0 == 0) || (fabs(x1 - x0) == fabs(y1 - y0))) {
 			printf("You can do this move\n");
 		}
@@ -76,7 +68,7 @@ int main() {
 			flag++;
 		}
 		break;
-	case(2):
+	case(Rook):
 		if (y1 - y0 == 0 || x1 - x0 == 0) {
 			printf("You can do this move\n");
 		}
@@ -84,7 +76,7 @@ int main() {
 			flag++;
 		}
 		break;
-	case(3):
+	case(Bishop):
 		if (fabs(x1 - x0) == fabs(y1 - y0)) {
 			printf("You can do this move\n");
 		}
@@ -92,7 +84,7 @@ int main() {
 			flag++;
 		}
 		break;
-	case(4):
+	case(Knight):
 		if ((fabs(x1 - x0) == 2 && fabs(y1 - y0) == 1) || (fabs(x1 - x0) == 1 && fabs(y1 - y0) == 2)) {
 			printf("You can do this move\n");
 		}
