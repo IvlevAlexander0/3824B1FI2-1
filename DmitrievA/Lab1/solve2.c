@@ -10,13 +10,17 @@ enum chess_pieces {
         KNIGHT = 5
     };
 
-void validate_square(char *x, char *y){
-    while(*x < 'A' || *x > 'H' || *y < '1' || *y > '8' )
-    {
-        printf("Incorrect data. Try again: ");
-        scanf(" %c %c", x, y);
+void input_square(char *x, char *y){
+    int a;
+    char c;
+    int incorrect = 0;
+    do{
+        if(incorrect){ printf("Incorrect data. Try again: ");}
+        a = scanf(" %c %c", x, y);
         *x = toupper(*x);
+        while ((c = getchar()) != '\n' && c != EOF){}
     }
+    while(a != 2 || *x < 'A' || *x > 'H' || *y < '1' || *y > '8' );
 }
 
 char validate_king(char x1, char y1, char x2, char y2){
@@ -80,21 +84,21 @@ void main(){
     
     char x1, x2;
     printf("Input figure:\n1 - King\n2 - Queen\n3 - Rook\n4 - Bishop\n5 - Knight\n");
-    scanf("%d", &figure);
-    while(figure < 1 || figure > 5){
+    int sc;
+    sc = scanf("%hd", &figure);
+    
+    while(sc != 1 || figure < 1 || figure > 5){
+        char c;
+        while ((c = getchar()) != '\n' && c != EOF){}
         printf("Incorrect data. Try again: ");
-        scanf("%d", &figure);
+        sc = scanf("%hd", &figure);
     }
 
     printf("Input first square: ");
-    scanf(" %c  %c", &x1, &y1);
-    x1 = toupper(x1);
-    validate_square(&x1, &y1);
+    input_square(&x1, &y1);
 
     printf("Input second square: ");
-    scanf(" %c  %c", &x2, &y2);
-    x2 = toupper(x2);
-    validate_square(&x2, &y2);
+    input_square(&x2, &y2);
 
     switch (figure)
     {
