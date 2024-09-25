@@ -4,9 +4,8 @@
 int main() {
 
 	float h, w, d, m, dvp = 820, dsp = 800, wood = 650, m_back, m_sides, m_ud, m_doors, m_sh;
-	int flag, c_sh = 0;
+	int flag = 1;
 	/* h - height; w - width; d - depth; m_* - mass of cupboard part; dvp, dsp, wood - material density(kg/m^3)*/
-	flag = 1;
 	while (flag == 1) {
 		printf("Input height (180-220), width(80-120), depth (50-90) of the cupboard(cm):");
 		scanf_s("%f %f %f", &h, &w, &d);
@@ -27,7 +26,6 @@ int main() {
 
 	if (h > 210) {
 		m_sh = w * d * 1.5 * dsp * 5;
-		c_sh += 1;
 	} // +1 shelf (enough place to add one more shelf)(10-20cm free place if  210-220cm)	|	1(40)	2(80)	3(120)	4(160)	5(200)  |
 	else {
 		m_sh = w * d * 1.5 * dsp * 4;
