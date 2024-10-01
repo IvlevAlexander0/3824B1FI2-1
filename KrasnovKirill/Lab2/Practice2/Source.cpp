@@ -20,7 +20,6 @@ int main() {
 	{
 	case 1:
 		num = rand() % 1000;
-
 		do {
 			flag = 1; // _a
 			do {
@@ -31,7 +30,7 @@ int main() {
 					printf("Uncorrect data\n");
 				}
 			} while (flag); // a_
-
+			flag_flag = a != num;
 			if (flag_flag) {
 				printf("Wrong, ");
 				if (num > a) { printf("Over\n"); }
@@ -45,7 +44,51 @@ int main() {
 		printf("Amount of tries = %d", count);
 		return 0;
 		break;
+	
 	case 2:
+		flag = 1; // _num
+		do {
+			printf("Input your number (1 ... 1000): \n");
+			scanf_s("%d", &num);
+			flag = (num < 1) || (num > 1000);
+			if (flag) {
+				printf("Uncorrect data\n");
+			}
+		} while (flag); // num_
+
+		a = rand() % 1000;
+		printf("The number is %d? (<, >, =): \n", a);
+
+		do {
+			scanf_s("%c", &ans);
+			if (ans == '>') {
+				dlim = a + 1;
+				a = dlim + rand() % (ulim - dlim + 1);
+				if (dlim > num) {
+					printf("Wrong answer, the game crashed");
+					return 0;
+				}
+				count++;
+				printf("The number is %d? (<, >, =): \n", a);
+			}
+			if (ans == '<') {
+				ulim = a - 1;
+				a = dlim + rand() % (ulim - dlim + 1);
+				if (ulim < num) {
+					printf("Wrong answer, the game crashed");
+					return 0;
+				}
+				count++;
+				printf("The number is %d? (<, >, =): \n", a);
+			}
+		} while (a != num);
+
+		count++;
+		printf("The computer guessed your number\n");
+		printf("Amount of tries = %d\n", count);
+		return 0;
+		break;
+	case 3:
 		flag = 1; // _num
 		do {
 			printf("Input your number (1 ... 1000)\n");
@@ -73,52 +116,25 @@ int main() {
 			if (ans == '>') {
 				dlim = a + 1;
 				a = dlim + rand() % (ulim - dlim + 1);
+				if (dlim > num) {
+					printf("Wrong answer, the game crashed");
+					return 0;
+				}
 				count++;
 				printf("The number is %d?\n", a);
 			}
 			if(ans == '<') {
 				ulim = a - 1;
 				a = dlim + rand() % (ulim - dlim + 1);
+				if (ulim < num) {
+					printf("Wrong answer, the game crashed");
+					return 0;
+				}
 				count++;
 				printf("The number is %d?\n", a);
 			}
 		} while (ans != '=');
 
-		printf("The computer guessed your number\n");
-		printf("Amount of tries = %d\n", count);
-		return 0;
-		break;
-	case 3:
-		flag = 1; // _num
-		do {
-			printf("Input your number (1 ... 1000)\n");
-			scanf_s("%d", &num);
-			flag = (num < 1) || (num > 1000);
-			if (flag) {
-				printf("Uncorrect data\n");
-			}
-		} while (flag); // num_
-
-		a = rand() % 1000;
-		printf("The number is %d? (<, >, =): \n", a);
-
-		do {
-			scanf_s("%c", &ans);
-			if (ans == '>') {
-				dlim = a + 1;
-				a = dlim + rand() % (ulim - dlim + 1);
-				count++;
-				printf("The number is %d? (<, >, =): \n", a);
-			}
-			if (ans == '<') {
-				ulim = a - 1;
-				a = dlim + rand() % (ulim - dlim + 1);
-				count++;
-				printf("The number is %d? (<, >, =): \n", a);
-			}
-		} while (a != num);
-
-		count++;
 		printf("The computer guessed your number\n");
 		printf("Amount of tries = %d\n", count);
 		return 0;
