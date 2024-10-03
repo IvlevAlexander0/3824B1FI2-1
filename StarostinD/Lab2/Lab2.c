@@ -57,4 +57,5 @@ int main() {
 	scanf_s("%hd", &choice);
 	printf("\n");
 	choice == 1 ? guess() : set();
+	return 0;
 }
