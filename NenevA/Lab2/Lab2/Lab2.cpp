@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 int main() {
+
 	int n, mode, guess, lim1, lim2, scz, flg = 1;
 	char odp[2], eq[] = "=", mo[] = ">", le[] = "<";
 	scz = 0;
@@ -61,8 +62,7 @@ int main() {
 			scz++;
 			guess = (lim2 - lim1) / 2 + lim1;
 			
-			printf("n = %d is it correct?(enter > or = or <)\n", guess);
-			
+			printf("n = %d is it correct?(enter > or = or <)\n", guess);	
 		}
 
 		printf("Your number is %d\n",guess);
