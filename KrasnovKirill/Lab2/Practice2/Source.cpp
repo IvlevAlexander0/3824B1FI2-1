@@ -1,4 +1,4 @@
-#include <stdio.h>>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -10,7 +10,7 @@ int main() {
 	do { 
 		printf("Choose the game mod (1 - you guess the number, 2 - the computer guesses the number): ");
 		scanf_s("%d", &mod);
-		flag = (mod != 1) && (mod != 2) && (mod != 3);
+		flag = (mod != 1) && (mod != 2);
 		if (flag) {
 			printf("Uncorrect data\n");
 		}
@@ -42,53 +42,9 @@ int main() {
 		count++;
 		printf("Congratilations! You finally guessed\n");
 		printf("Amount of tries = %d", count);
-		return 0;
 		break;
 	
 	case 2:
-		flag = 1; // _num
-		do {
-			printf("Input your number (1 ... 1000): \n");
-			scanf_s("%d", &num);
-			flag = (num < 1) || (num > 1000);
-			if (flag) {
-				printf("Uncorrect data\n");
-			}
-		} while (flag); // num_
-
-		a = rand() % 1000;
-		printf("The number is %d? (<, >, =): \n", a);
-
-		do {
-			scanf_s("%c", &ans);
-			if (ans == '>') {
-				dlim = a + 1;
-				a = dlim + rand() % (ulim - dlim + 1);
-				if (dlim > num) {
-					printf("Wrong answer, the game crashed");
-					return 0;
-				}
-				count++;
-				printf("The number is %d? (<, >, =): \n", a);
-			}
-			if (ans == '<') {
-				ulim = a - 1;
-				a = dlim + rand() % (ulim - dlim + 1);
-				if (ulim < num) {
-					printf("Wrong answer, the game crashed");
-					return 0;
-				}
-				count++;
-				printf("The number is %d? (<, >, =): \n", a);
-			}
-		} while (a != num);
-
-		count++;
-		printf("The computer guessed your number\n");
-		printf("Amount of tries = %d\n", count);
-		return 0;
-		break;
-	case 3:
 		flag = 1; // _num
 		do {
 			printf("Input your number (1 ... 1000)\n");
@@ -99,15 +55,17 @@ int main() {
 			}
 		} while (flag); // num_
 
+		a = rand() % 1000;
+		printf("The number is %d?\n", a);
+
 		do {
-			a = rand() % 1000;
-			printf("The number is %d?\n", a);
-			
 			flag = 1; // _ans
 			do {
 				printf("Input the your answer (<, >, =): ");
+				char c;
+				while ((c = getchar()) != '\n' && c != EOF) {}
 				scanf_s("%c", &ans);
-				flag = (ans != '>' || ans != '<' || ans != '=');
+				flag = (ans != '>' && ans != '<' && ans != '=');
 				if (flag) {
 					printf("Uncorrect data\n");
 				}
@@ -135,9 +93,10 @@ int main() {
 			}
 		} while (ans != '=');
 
+		count++;
 		printf("The computer guessed your number\n");
 		printf("Amount of tries = %d\n", count);
-		return 0;
 		break;
 	}
+	return 0;
 }
