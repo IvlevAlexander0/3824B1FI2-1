@@ -8,7 +8,6 @@ void main() {
 	enum BOOLEAN flag = True;
 	long long int h, w, d, pol, num = 0;
 	double dsp = 0.5, dvp = 0.82, derevo = 0.55; //В граммах на см^3
-	int numpol;
 	char c;
 	float res;
 	do { 
@@ -49,7 +48,13 @@ void main() {
 		}
 	
 	} while (flag);
-	numpol = (int)((h - 1) / 40);
-	res = (h * w * 0.5 * dvp) + (2 * d * h * 1.5 * dsp) + (2 * w * d * 1.5 * dsp) + (h * w * 1 * derevo) + (numpol * d * w * dsp);
+	int hei = h;
+	int numpol = -1;
+	while (hei > 0) {
+		hei = hei - 40 - 1;
+		numpol++;
+	}
+	printf("%d", numpol);
+	res = (h * w * 0.5 * dvp) + (2 * d * h * 1.5 * dsp) + (2 * w * d * 1.5 * dsp) + (h * w * 1 * derevo) + (numpol * d * (w - 3) * dsp);
 	printf("Mass of the closet is %.1f gramm or %.4f kilogramms\n", res, (res/1000));
 }
