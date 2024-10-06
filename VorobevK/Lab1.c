@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-//no user interface included, not really caring about it
+//no user interface included
 void main(){
     double h,w,d;
     double dvpdens = 0.79, dspdens = 0.7, wooddens = 0.63; //values vary alot, taken random in the range, [grams per cm cubed]
