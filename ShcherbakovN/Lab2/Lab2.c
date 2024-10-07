@@ -73,7 +73,7 @@ int main()
 		} while (user_num > 1000 || user_num < 1);
 		int rand_num = 1 + rand() % 1001, split_up = 1001, extra_num, split_down = 1;
 
-		char compare, check;
+		char compare;
 		while(1)
 		{
 			int rand_num = split_down + rand() % split_up;
