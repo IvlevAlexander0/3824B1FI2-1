@@ -9,12 +9,10 @@ int main(){
     int t = 0;
     do{
         if(incorrect){ printf("Incorrect data. Try again: ");}
-        t = scanf(" %c", &m);
-        char tc;
-        while ((tc = getchar()) != '\n' && tc != EOF){}
+        m = getchar();
         incorrect = 1;
     }
-    while(t != 1 || (m != '1' && m != '2'));
+    while(m != '1' && m != '2');
     if (m == '1'){
         srand(time(NULL));
         int a =  ( rand() % 1000) + 1;
