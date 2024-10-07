@@ -26,7 +26,6 @@ int main()
 		printf("Enter the expected number:\n");
 		do
 		{
-			flag = 1;
 			if (scanf_s("%d", &user_num) != 1)
 			{
 				char c;
@@ -51,10 +50,9 @@ int main()
 			{
 				trys++;
 				printf("user_num = rand_num\nAttempts: %d", trys);
-				flag = 0;
+				break;
 			}
-		} while (flag);
-		return 0;
+		} while (1);
 	}
 
 	else if(choice == 2)
@@ -75,13 +73,14 @@ int main()
 		} while (user_num > 1000 || user_num < 1);
 		int rand_num = 1 + rand() % 1001, split_up = 1001, extra_num, split_down = 1;
 
-		char compare;
-		while(user_num != rand_num + 1001)
+		char compare, check;
+		while(1)
 		{
 			int rand_num = split_down + rand() % split_up;
 			printf("Random number: %d\n", rand_num);
 
 			// Enter > < =:
+			printf("Enter >, < or = (user_number (?) rand_number): \n");
 			do
 			{
 				if (scanf_s("%c", &compare) != 1)
@@ -92,7 +91,7 @@ int main()
 						c = scanf_s("%c", &compare);
 					}
 				}
-			} while (compare != '>' && compare != '<' && compare != '=');
+			} while ( (user_num - rand_num > 0 && compare != '>') || (user_num - rand_num < 0 && compare != '<') || (user_num - rand_num == 0 && compare != '=') );
 
 
 			if (/*user_num > rand_num*/ compare == '>')
@@ -117,6 +116,6 @@ int main()
 				break;
 			}
 		}
-		return 0;
 	}
+	return 0;
 }
