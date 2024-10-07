@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main(){
     char m;
@@ -15,7 +16,8 @@ int main(){
     }
     while(t != 1 || (m != '1' && m != '2'));
     if (m == '1'){
-        int a =  (rand() % 1000) + 1;
+        srand(time(NULL));
+        int a =  ( rand() % 1000) + 1;
         int temp = 0;
         int count = 0;
         while(temp != a){
@@ -38,7 +40,6 @@ int main(){
             }
         }
         printf("You guessed the number. Total moves: %d", count);
-        return 0;
     }
     else{
         char c;
@@ -52,13 +53,11 @@ int main(){
             incorrect = 0;
             do{
                 if(incorrect){ printf("Incorrect data. Try again: ");}
-                t = scanf(" %c", &c);
+                c = getchar();
                 printf("\n");
-                char tc;
-                while ((tc = getchar()) != '\n' && tc != EOF){}
                 incorrect = 1;
             }
-            while(t != 1 || (c != '>' && c != '<' && c != '='));
+            while(c != '>' && c != '<' && c != '=');
             if(c == '>'){
                 l = (l + r)/2+1;
             }
@@ -66,8 +65,11 @@ int main(){
                 r = (l + r)/2-1;
             }
         }
-        while (c != '=');
+        while (c != '=' && l != r);
+        if (l == r){
+            printf("guessed number is %d", l);
+        }
         printf("Total moves: %d", count);
-        return 0;
     }
+    return 0;
 }
