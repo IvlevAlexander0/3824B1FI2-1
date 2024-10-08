@@ -13,8 +13,9 @@ int stp(int k) {
 
 int main() {
 	srand(time(NULL));
-	int n, p, bull = 0, cow = 0;
+	int n, p, bull = 0, cow = 0, flag = 0;
 	int a[5] = { 0, 0, 0, 0, 0 }, b[5] = { 0, 0, 0, 0, 0 };
+	int A;
 
 	do {
 		printf("Input the lenght of the number (2...5): ");
@@ -27,13 +28,23 @@ int main() {
 		}
 	} while (1);
 
-	int A = rand() % stp(n);
-	printf("%d", A);
+	do {
+		flag = 0;
+		int A = rand() % stp(n);
 
-	for (int i = 0; i < n; i++) {
-		a[i] = A / stp(n - i - 1);
-		A = A % stp(n - i - 1);
-	}
+		for (int i = 0; i < n; i++) {
+			a[i] = A / stp(n - i - 1);
+			A = A % stp(n - i - 1);
+		}
+
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				if (a[i] == a[j] && i != j) {
+					flag = 1;
+				}
+			}
+		}
+	} while (flag == 1);
 
 	do {
 		do {
