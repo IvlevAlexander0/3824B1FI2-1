@@ -4,7 +4,7 @@ int main() {
     char c;
     int part_word=0, part_number=0;
     int count_word=0, count_number=0;
-    int both = 0;
+    int wrong = 0;
     while ((c = getchar()) != '\n') {
         if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) {
             if (!part_word && !part_number) {
@@ -12,7 +12,7 @@ int main() {
                 part_word = 1;
             }
             if (part_number) {
-                both = 1;
+                wrong = 1;
             }
         }
         else if (c >= '0' && c <= '9') {
@@ -21,11 +21,11 @@ int main() {
                 part_number = 1;
             }
             if (part_word) {
-                both = 1;
+                wrong = 1;
             }
         }
         else if (c == ' ' || c == '\t') {
-            if (both) {
+            if (wrong) {
                 if (part_word) {
                     count_word--;
                 }
@@ -35,10 +35,13 @@ int main() {
             }
             part_word = 0;
             part_number = 0;
-            both = 0;
+            wrong = 0;
+        }
+        else {
+            wrong = 1;
         }
     }
-    if (both) {
+    if (wrong) {
         if (part_word) {
             count_word--;
         }
