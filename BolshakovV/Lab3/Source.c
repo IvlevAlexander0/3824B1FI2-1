@@ -3,7 +3,7 @@
 #include <time.h>
 int main() {
     srand(time(NULL));
-    //проверка на корректность ввода длины
+    //checking for the correctness of the length
     int l;
     printf("Please choose the length of the number [2-5]\n");
     int flag;
@@ -20,7 +20,7 @@ int main() {
         }
     } while (flag != 0);
 
-    //генерация числа
+    //generating a number
     int zifr[5] = { 0 };
     int k = 0;
     int flag1;
@@ -39,7 +39,7 @@ int main() {
         zifr[k] = a;
         k++;
     }
-    //вывод созданного числа (для пользователя не нужно)
+    //output of the created number (not necessary for the user)
     for (int i = 0; i < l; i++) {
         printf("%d", zifr[i]);
     }
@@ -69,7 +69,6 @@ int main() {
                 }
 
             } while (flag != 0);
-            //printf("%d\n", chislo);
             int mass[2] = { 0 };
             mass[0] = chislo / 10;
             mass[1] = chislo % 10;
@@ -118,7 +117,6 @@ int main() {
                 }
 
             } while (flag != 0);
-            //printf("%d\n", chislo);
             int mass[3] = { 0 };
             mass[0] = chislo / 100;
             mass[1] = (chislo / 10) % 10;
@@ -170,7 +168,6 @@ int main() {
                 }
 
             } while (flag != 0);
-            //printf("%d\n", chislo);
             int mass[4] = { 0 };
             mass[0] = chislo / 1000;
             mass[1] = (chislo / 100) % 10;
@@ -225,7 +222,6 @@ int main() {
                 }
 
             } while (flag != 0);
-            //printf("%d\n", chislo);
             int mass[5] = { 0 };
 
             mass[0] = chislo / 10000;
