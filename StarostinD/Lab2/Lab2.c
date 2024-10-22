@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 void guess() {
 	int x = 1 + rand() % 1000;
 	int cnt = 0;
@@ -30,7 +29,7 @@ void set() {
 	printf("Set the number(1-1000): ");
 	scanf_s("%d", &x);
 	printf("\nTrying to guess...\n");
-	int l = 0, r = 1001, g = 0;
+	int l =0 , r = 1001, g = 0;
 	char sign = ' ';
 	while (sign != '=') {
 		g = (r + l) / 2;
@@ -38,6 +37,7 @@ void set() {
 		printf("%d\n", g);
 		while ((sign = getchar()) != '\n' && sign != EOF);
 		scanf_s("%c", &sign);
+		//(g >= x ? r : l) = g;
 		if (sign == '=') {
 			printf("I think you guessed %d\nNumber of attempts: %d\n", g, cnt);
 		}
