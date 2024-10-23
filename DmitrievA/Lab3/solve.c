@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 
+void flush(){
+    int tc;
+    while ((tc = getchar()) != '\n' && tc != EOF){}
+}
+
 int main() {
     int l;
     printf("input number length: ");
@@ -11,8 +16,7 @@ int main() {
     do{
         if(incorrect){ printf("Incorrect data. Try again: ");}
         t = scanf(" %d", &l);
-        char tc;
-        while ((tc = getchar()) != '\n' && tc != EOF){}
+        flush();
         incorrect = 1;
     }
     while(t != 1 || l < 2 || l > 5);
@@ -38,33 +42,43 @@ int main() {
         m += 1;
     }
     char temp[5];
-    int tempn = 0;
-    int p10 = 1;
-    int n = 0;
+    int bulls = 0;
     for(int i = 0; i < l; i++){
-        n += digits[i]*p10;
-        p10 *= 10;
+        printf("%d", digits[i]);
     }
-    while(n != tempn){
+
+    while(bulls != l){
 
         //ввод числа пользователя
         printf("\nInput number: ");
         char tc;
         for(int i = l-1; i >=0; i--){
             char c = getchar();
+            printf("%c %d \n", c, i);
             if( c < '0' || c > '9'){
-                while ((tc = getchar()) != '\n' && tc != EOF){}
+                flush();
                 printf("\nInput only number: ");
-                i = l-1;
+                i = l;
             }
             else{
+                //проверка на неповторяемость цифр
+                int flag = 1;
+                for(int j = l-1; j > i; j--){
+                    if(temp[j] == c){
+                        i = l;
+                        flush();
+                        flag = 0;
+                        printf("Input number with unrepeating digits:");
+                    }
+                }
+                if (flag)
                 temp[i] = c;
             }
         }
-        while ((tc = getchar()) != '\n' && tc != EOF){}
+        flush();
 
         //подсчёт быков и коров
-        int bulls = 0;
+        bulls = 0;
         int cows = 0;
         for(int i = 0; i < l; i++){
             for(int j = 0; j < l; j++){
@@ -80,14 +94,6 @@ int main() {
         }
         printf("bulls: %d\n", bulls);
         printf("cows: %d\n", cows);
-
-        //вычисление числа, которое ввёл пользователь
-        p10 = 1;
-        tempn = 0;
-        for(int i = 0; i < l; i++){
-            tempn += (temp[i] - '0')*p10;
-            p10 *= 10;
-        }
     }
     printf("you guessed number");
     return 0;
