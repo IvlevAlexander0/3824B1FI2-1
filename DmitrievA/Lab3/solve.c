@@ -41,40 +41,40 @@ int main() {
         digits[m] = temp_n;
         m += 1;
     }
-    char temp[5];
+    int temp[5];
     int bulls = 0;
-    for(int i = 0; i < l; i++){
-        printf("%d", digits[i]);
-    }
+    // for(int i = 0; i < l; i++){
+    //     printf("%d", digits[i]);
+    // }
 
     while(bulls != l){
 
         //ввод числа пользователя
         printf("\nInput number: ");
-        char tc;
-        for(int i = l-1; i >=0; i--){
-            char c = getchar();
-            printf("%c %d \n", c, i);
-            if( c < '0' || c > '9'){
-                flush();
-                printf("\nInput only number: ");
-                i = l;
-            }
-            else{
-                //проверка на неповторяемость цифр
-                int flag = 1;
+        int t;
+        int repeat_flag, shorter_flag;
+        incorrect = 0;
+        int tempn;
+        do{
+            repeat_flag = 0;
+            shorter_flag = 0;
+            if(incorrect) printf("Incorrect data. Try again(Input number with urepeating digits, length of number is %d):", l);
+            t = scanf("%d", &tempn);
+            if (t!= 1) flush();
+            incorrect = 1;
+            for(int i = l-1; i >= 0; i--){
+                int c = tempn % 10;
                 for(int j = l-1; j > i; j--){
                     if(temp[j] == c){
-                        i = l;
-                        flush();
-                        flag = 0;
-                        printf("Input number with unrepeating digits:");
+                        repeat_flag = 1;
                     }
                 }
-                if (flag)
+                tempn /= 10;
                 temp[i] = c;
+                if(tempn == 0) shorter_flag = 1;
             }
-        }
+            
+        }while(repeat_flag || shorter_flag || (t != 1) || (tempn!= 0));
         flush();
 
         //подсчёт быков и коров
@@ -82,7 +82,7 @@ int main() {
         int cows = 0;
         for(int i = 0; i < l; i++){
             for(int j = 0; j < l; j++){
-                if(digits[j] == (temp[i]- '0')){
+                if(digits[j] == temp[i]){
                     if(i==j){
                         bulls++;
                     }
