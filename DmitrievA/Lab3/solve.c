@@ -60,7 +60,7 @@ int main() {
             shorter_flag = 0;
             if(incorrect) printf("Incorrect data. Try again(Input number with urepeating digits, length of number is %d):", l);
             t = scanf("%d", &tempn);
-            if (t!= 1) flush();
+            flush();
             incorrect = 1;
             for(int i = l-1; i >= 0; i--){
                 int c = tempn % 10;
@@ -69,13 +69,12 @@ int main() {
                         repeat_flag = 1;
                     }
                 }
+                if(tempn == 0) shorter_flag = 1;
                 tempn /= 10;
                 temp[i] = c;
-                if(tempn == 0) shorter_flag = 1;
             }
             
         }while(repeat_flag || shorter_flag || (t != 1) || (tempn!= 0));
-        flush();
 
         //подсчёт быков и коров
         bulls = 0;
