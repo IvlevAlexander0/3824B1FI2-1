@@ -26,11 +26,10 @@ int main() {
 		}
 		flag = 0;
 	}
-	for (int i = 0; i < length; i++) {
-		printf_s("%d ", digits[i]);
-	}
+	//for (int i = 0; i < length; i++) {
+	//	printf_s("%d ", digits[i]);}
 	int positions = 0, counter;
-	char input[6];
+	char input[7];
 	int valid;
 	int* digits_ask = (int*)malloc(length * sizeof(int));
 	char ch;
