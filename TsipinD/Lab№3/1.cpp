@@ -1,22 +1,20 @@
 #include <stdio.h>
-#include <locale.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <string.h>
 int main() {
-	setlocale(LC_ALL, "rus");
 	int length;
-	printf("Введите длину числа: \n");
+	printf("Enter the length: \n");
 	while (scanf_s("%d", &length) != 1 || length < 2 || length > 5) { // проверка ввода длины
-		printf_s("Длина должна принимать значения от 2 до 5.\n");
+		printf_s("Number's length must be from 2 to 5.\n");
 		char c;
 		while ((c = getchar()) != '\n' && (c != EOF)) {}
 	}
-	int *digits = (int*)malloc(length * sizeof(int));
+	int* digits = (int*)malloc(length * sizeof(int));
 	char flag = 0;
 	srand(time(NULL));
 	digits[0] = rand() % 10;  // создание n-значного числа с неповторяющимися цифрами
-	for (int i = 1; i < length; i++) { 
+	for (int i = 1; i < length; i++) {
 		while (flag == 0) {
 			flag = 1;
 			digits[i] = rand() % 10;
@@ -28,45 +26,55 @@ int main() {
 		}
 		flag = 0;
 	}
-	int positions=0, counter;
-	char input[6];  // беру 6 знаков, чтобы при избыточной длине вводимого числа была ошибка (*)
+	for (int i = 0; i < length; i++) {
+		printf_s("%d ", digits[i]);
+	}
+	int positions = 0, counter;
+	char input[6];
 	int valid;
-	int num_digits;
-	int *digits_ask = (int*)malloc(length * sizeof(int));
+	int* digits_ask = (int*)malloc(length * sizeof(int));
 	char ch;
-	ch = getchar();
+	ch = getchar(); // без этой строки fgets при первом запуске цикла считает \n и сразу напишет ошибку о неправильной длине числа
 	while (positions != length) {
 		valid = 0;
-		while (!valid) { // алгоритм проверки длины вводимого числа
-			num_digits = 0;
-			positions = 0;
-			counter = 0;
-			while (ch != 'n') {
-				if (num_digits == 0) {
-					printf_s("Введите число: ");
+		while (!valid) { // алгоритм проверки длины и уникальности цифр вводимого числа
+			printf_s("Enter the number: ");
+			fgets(input, sizeof(input), stdin); 
+			int num_digits = strlen(input) - 1; // т.к. последний символ это переход на новую строку
+
+			if (num_digits != length) {
+				printf("Your number must be %d in length.\n\n", length);
+				continue; 
+			}
+
+			int unique = 1; // проверка на различность всех цифр числа
+			for (int i = 0; i < num_digits; i++) {
+				if (input[i] < '0' || input[i] > '9') { 
+					unique = 0;
+					break;
 				}
-				ch = getchar();
-				if (ch >= '0' && ch <= '9') {
-					input[num_digits] = ch;
-					num_digits++;
-				}
-				else if (ch == '\n') {
-					if (num_digits == length) {
+				for (int j = i + 1; j < num_digits; j++) {
+					if (input[i] == input[j]) {
+						unique = 0;
 						break;
 					}
-					else {
-						printf("Вводимое число должно быть длиной %d.\n", length);
-						num_digits = 0;
-					}
 				}
+				if (!unique) break;
 			}
-			if (num_digits == length) {
-				valid = 1;
+
+			if (!unique) {
+				printf("All digits in number must be different!.\n");
+				continue; 
 			}
+
+			// перевод чар массива в инт массив
+			for (int i = 0; i < length; i++) {
+				digits_ask[i] = input[i] - '0';
+			}
+			valid = 1;
 		}
-		for (int i = 0; i < length; i++) {
-			digits_ask[i] = input[i] - '0';
-		}
+		positions = 0;
+		counter = 0;
 		for (int i = 0; i < length; i++) {
 			for (int j = 0; j < length; j++) {
 				if (digits_ask[i] == digits[j]) {
@@ -79,10 +87,10 @@ int main() {
 			}
 		}
 		if (positions == length) {
-			printf_s("\nВы угадали число!\n");
+			printf_s("\n  * You damn right! *\n");
 		}
 		else {
-			printf_s("Коров: %d. Быков: %d\n\n", counter, positions);
+			printf_s("Cows: %d. Bulls: %d\n\n", counter, positions);
 		}
 	}
 	free(digits);
