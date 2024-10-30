@@ -1,14 +1,9 @@
 ﻿#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-enum BOOLEAN {
-	False,
-	True
-};
 
 void main()
 {
-	enum BOOLEAN flag = True;
 	char c;
 	int count = 0, count1 = 0;
 	int pol;
@@ -21,7 +16,7 @@ void main()
 			if (count == 1) {
 				printf("Your task is to guess a random number.\n");
 				srand(time(NULL));
-				num = (rand() + 1) % 1000;
+				num = rand() % 1000 + (rand() / 1000);
 			}
 			else {
 				printf("Imagine a number and answer honestly on computer questions.");
@@ -52,6 +47,10 @@ void main()
 			}
 			else if (trig == 2) {
 				vrem1 = num2;
+			}
+			else if (vrem1 == vrem2) {
+				printf("Computer is happy to guess right! It took %d attempts for it!", count1);
+				break;
 			}
 			else {
 				printf("Computer is happy to guess right! It took %d attempts for it!", count1);
