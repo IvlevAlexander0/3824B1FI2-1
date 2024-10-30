@@ -298,6 +298,7 @@ void main()
 				}
 				t++;
 			}
+			initial_products();
 		}
 	}
 }
