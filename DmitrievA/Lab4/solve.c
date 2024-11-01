@@ -29,8 +29,8 @@ int main() {
     int total_count = 0;
     sprintf(products[1], "bread"); costs[1] = 3; discounts[1] = 45;
     sprintf(products[2], "milk"); costs[2] = 50; discounts[2] = 0;
-    sprintf(products[3], "cookies"); costs[3] = 0; discounts[3] = 100;
-    sprintf(products[4], "lays"); costs[4] = 123454; discounts[4] = 99;
+    sprintf(products[3], "cookies"); costs[3] = 0; discounts[3] = 34;
+    sprintf(products[4], "lays"); costs[4] = 123454; discounts[4] = 29;
     sprintf(products[5], "water"); costs[5] = 1345; discounts[5] = 10;
     while(1){
         printf("Choose operation: \n1. Adding a product description to the program for the duration of its operation\n2. “Scanning” the product and displaying its description\n3. “Scanning” the product and adding it to the receipt\n4. Displaying the receipt for the purchase\n5. Generate a final check\n");
@@ -145,7 +145,7 @@ int main() {
             } while(1);
             products[num][i] = '\0';
 
-            printf("Enter price of product(not too much %d): ", INT_MAX);
+            printf("Enter price of product in %%(not too much %d): ", INT_MAX);
             int price;
             incorrect = 0;
             do{
@@ -156,15 +156,15 @@ int main() {
             } while (t != 1 || price < 0);
             costs[num]=price;
 
-            printf("Enter discount of product[0 - 100]: ");
+            printf("Enter discount of product[0 - 50]: ");
             int discount;
             incorrect = 0;
             do{
-                if(incorrect) printf("incorrect number, try again. Write number from 0 to 100: ");
+                if(incorrect) printf("incorrect number, try again. Write number from 0 to 50: ");
                 t = scanf("%d", &discount);
                 incorrect = 1;
                 flush();
-            } while (t != 1 || discount < 0 || discount > 100);
+            } while (t != 1 || discount < 0 || discount > 50);
             discounts[num] = discount;
             break;
             //считывание товара на 120 строк кода. мдааа. https://tenor.com/view/homelander-the-boys-gif-26162796
