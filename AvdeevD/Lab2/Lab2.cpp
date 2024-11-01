@@ -5,18 +5,19 @@
 void main()
 {
 	char c;
+	int check = 1;
 	int count = 0, count1 = 0;
-	int pol;
 	int num1, num, vrem3,  vrem1 = 1000, vrem2 = 1, num2;
 	int trig;
-	printf("You have to choose a mode.\n First is where you guess a random number, second is where a computer tries to guess your number.\nEnter 1 for first mode, 2 for second.\n");
-	while (true) {
+	printf("You have to choose a mode.\nIn both modes the diapason of numbers is between 1 and 1000.\n");
+	printf("First mode is where you guess a random number, second is where a computer tries to guess your number.\nEnter 1 for first mode, 2 for second.\n");
+	while (check == 1) {
 		if (count == 0) {
 			scanf_s("%d", &count);
 			if (count == 1) {
 				printf("Your task is to guess a random number.\n");
 				srand(time(NULL));
-				num = rand() % 1000 + (rand() / 1000);
+				num = rand() % 1000 + 1;
 			}
 			else {
 				printf("Imagine a number and answer honestly on computer questions.");
