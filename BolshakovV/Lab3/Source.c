@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 int main() {
     srand(time(NULL));
-    //checking for the correctness of the length
+    //выбор длины числа
     int l;
     printf("Please choose the length of the number [2-5]\n");
     int flag;
@@ -19,8 +20,7 @@ int main() {
         {
         }
     } while (flag != 0);
-
-    //generating a number
+    //генерация числа
     int zifr[5] = { 0 };
     int k = 0;
     int flag1;
@@ -39,219 +39,108 @@ int main() {
         zifr[k] = a;
         k++;
     }
-    //output of the created number (not necessary for the user)
+    //вывод созданного числа (для пользователя не нужно)
     for (int i = 0; i < l; i++) {
         printf("%d", zifr[i]);
     }
 
     printf("\nPlease enter a number of the selected length with non-repeating digits\n");
-    printf("First number is the number of <bulls> (the number of digits guessed both by value and position in the number)\n");
-    printf("The second number is the number of cows (the number matched in value, but not in position\n");
+    printf("First number is the number of <bulls> (the number of digits guessed both by value and position in the number\n");
+    printf("The second number is the number of cows (the number matched in value, but not in position)\n\n");
+    printf("Attention! If you enter a longer number, the program will only work with the first l characters!!!!\n");
 
-    if (l == 2) {
-        while (1) {
-            int flag;
-            int chislo;
-            int c;
-            do {
-                flag = 0;
-                int r = scanf_s("%d", &chislo);
+    while (1) {
+        int A[10] = { 0 };
+        int k = 0;
+        int flag2 = 0;
+        int dlina = 0;
 
-                int mass[2] = { 0 };
-                mass[0] = chislo / 10;
-                mass[1] = chislo % 10;
-                if (r != 1 || (mass[0] == mass[1])) {
-                    printf("Error. Please enter the correct values\n");
-                    flag = 1;
-                }
-                while ((c = getchar()) != '\n' && c != EOF)
-                {
-                }
-
-            } while (flag != 0);
-            int mass[2] = { 0 };
-            mass[0] = chislo / 10;
-            mass[1] = chislo % 10;
-            int cows = 0;
-            int bulls = 0;
+        do {
+            flag2 = 0;
+            k = 0;
+            int dlina = 0;
+            int m;
 
             for (int i = 0; i < l; i++) {
-                for (int j = 0; j < l; j++) {
-                    if (zifr[j] == mass[i]) {
-                        if (i == j) {
-                            bulls++;
+
+                char c;
+                c = getchar();
+                if (c == '\n') {
+                    if (dlina != l) {
+                        printf("Error: Number must be exactly %d digits long\n", l);
+                        for (int i = 0; i < 10; i++) {
+                            A[i] = 0;
                         }
-                        else {
-                            cows++;
-                        }
+                        k = 0;
+                        dlina = 0;
+                        break;
+                    }
+                    break;
+                }
+
+                if (c < '0' || c>'9') {
+                    printf("Error. Not a digit\n");
+                    flag2 = 1;
+                    break;
+                }
+                if (i == 0 && c == '0') {
+                    printf("The first digit cannot be 0\n");
+                    flag2 = 1;
+                    break;
+                }
+                int digit = c - '0';
+                if (A[digit] == 1) {
+                    printf("Digits must not repeat\n");
+                    flag2 = 1;
+                    break;
+                }
+
+                A[digit] = 1;
+                k = k * 10 + (c - '0');
+                dlina++;
+            }
+            if (flag2 == 1) {
+                for (int i = 0; i < 10; i++) {
+                    A[i] = 0;
+                }
+            }
+            while ((m = getchar()) != '\n' && m != EOF) {
+            }
+        } while (flag2 != 0);
+        //перевод k в массив
+        int mass[5];
+        int index = 0;
+        while (k > 0) {
+            mass[index] = k % 10;
+            k /= 10;
+            index++;
+        }
+        for (size_t j = 0; j < index / 2; j++) {
+            int h = mass[j];
+            mass[j] = mass[index - 1 - j];
+            mass[index - 1 - j] = h;
+        }
+        //подсчет быков и коров
+        int cows = 0;
+        int bulls = 0;
+        for (int i = 0; i < l; i++) {
+            for (int j = 0; j < l; j++) {
+                if (zifr[j] == mass[i]) {
+                    if (i == j) {
+                        bulls++;
+                    }
+                    else {
+                        cows++;
                     }
                 }
             }
-            printf("%d %d\n", bulls, cows);
-            if (bulls == 2) {
-                printf("\nWin!!!\n");
-                break;
-            }
+        }
+        printf("%d %d\n", bulls, cows);
+        if (bulls == l) {
+            printf("\nWin!!!\n");
+            break;
 
         }
     }
-    if (l == 3) {
-        while (1) {
-            int flag;
-            int chislo;
-            int c;
-            do {
-                flag = 0;
-                int r = scanf_s("%d", &chislo);
-
-                int mass[3] = { 0 };
-                mass[0] = chislo / 100;
-                mass[1] = (chislo / 10) % 10;
-                mass[2] = chislo % 10;
-                if (r != 1 || (mass[0] == mass[1] || mass[0] == mass[2] || mass[1] == mass[2])) {
-                    printf("Error. Please enter the correct values\n");
-                    flag = 1;
-                }
-                while ((c = getchar()) != '\n' && c != EOF)
-                {
-                }
-
-            } while (flag != 0);
-            int mass[3] = { 0 };
-            mass[0] = chislo / 100;
-            mass[1] = (chislo / 10) % 10;
-            mass[2] = chislo % 10;
-
-            int cows = 0;
-            int bulls = 0;
-            for (int i = 0; i < l; i++) {
-                for (int j = 0; j < l; j++) {
-                    if (zifr[j] == mass[i]) {
-                        if (i == j) {
-                            bulls++;
-                        }
-                        else {
-                            cows++;
-                        }
-                    }
-                }
-            }
-            printf("%d %d\n", bulls, cows);
-            if (bulls == 3) {
-                printf("\nWin!!!\n");
-                break;
-
-            }
-
-        }
-    }
-    if (l == 4) {
-        while (1) {
-            int flag;
-            int chislo;
-            int c;
-            do {
-                flag = 0;
-                int r = scanf_s("%d", &chislo);
-
-                int mass[4] = { 0 };
-                mass[0] = chislo / 1000;
-                mass[1] = (chislo / 100) % 10;
-                mass[2] = (chislo / 10) % 10;
-                mass[3] = (chislo % 10);
-                if (r != 1 || (mass[0] == mass[1] || mass[0] == mass[2] || mass[0] == mass[3] || mass[1] == mass[2] || mass[1] == mass[3] || mass[2] == mass[3])) {
-                    printf("Error. Please enter the correct values\n");
-                    flag = 1;
-                }
-                while ((c = getchar()) != '\n' && c != EOF)
-                {
-                }
-
-            } while (flag != 0);
-            int mass[4] = { 0 };
-            mass[0] = chislo / 1000;
-            mass[1] = (chislo / 100) % 10;
-            mass[2] = (chislo / 10) % 10;
-            mass[3] = (chislo % 10);
-
-            int cows = 0;
-            int bulls = 0;
-            for (int i = 0; i < l; i++) {
-                for (int j = 0; j < l; j++) {
-                    if (zifr[j] == mass[i]) {
-                        if (i == j) {
-                            bulls++;
-                        }
-                        else {
-                            cows++;
-                        }
-                    }
-                }
-            }
-            printf("%d %d\n", bulls, cows);
-            if (bulls == 4) {
-                printf("\nWin!!!\n");
-                break;
-
-            }
-
-        }
-    }
-    if (l == 5) {
-        while (1) {
-            int flag;
-            int chislo;
-            int c;
-            do {
-                flag = 0;
-                int r = scanf_s("%d", &chislo);
-
-                int mass[5] = { 0 };
-                mass[0] = chislo / 10000;
-                mass[1] = (chislo / 1000) % 10;
-                mass[2] = (chislo / 100) % 10;
-                mass[3] = (chislo / 10) % 10;
-                mass[4] = (chislo % 10);
-                if (r != 1 || (mass[0] == mass[1] || mass[0] == mass[2] || mass[0] == mass[3] || mass[0] == mass[4])
-                    || (mass[1] == mass[2] || mass[1] == mass[3] || mass[1] == mass[4] || mass[2] == mass[3] || mass[2] == mass[4] || mass[3] == mass[4])) {
-                    printf("Error. Please enter the correct values\n");
-                    flag = 1;
-                }
-                while ((c = getchar()) != '\n' && c != EOF)
-                {
-                }
-
-            } while (flag != 0);
-            int mass[5] = { 0 };
-
-            mass[0] = chislo / 10000;
-            mass[1] = (chislo / 1000) % 10;
-            mass[2] = (chislo / 100) % 10;
-            mass[3] = (chislo / 10) % 10;
-            mass[4] = (chislo % 10);
-            int cows = 0;
-            int bulls = 0;
-            for (int i = 0; i < l; i++) {
-                for (int j = 0; j < l; j++) {
-                    if (zifr[j] == mass[i]) {
-                        if (i == j) {
-                            bulls++;
-                        }
-                        else {
-                            cows++;
-                        }
-                    }
-                }
-            }
-            printf("%d %d\n", bulls, cows);
-            if (bulls == 5) {
-                printf("\nWin!!!\n");
-                break;
-
-            }
-
-        }
-    }
-
     return 0;
 }
