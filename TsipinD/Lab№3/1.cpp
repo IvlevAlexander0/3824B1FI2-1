@@ -29,7 +29,7 @@ int main() {
 	//for (int i = 0; i < length; i++) {
 	//	printf_s("%d ", digits[i]);}
 	int positions = 0, counter;
-	char input[7];
+	char input[12];
 	int valid;
 	int* digits_ask = (int*)malloc(length * sizeof(int));
 	char ch;
@@ -40,7 +40,6 @@ int main() {
 			printf_s("Enter the number: ");
 			fgets(input, sizeof(input), stdin); 
 			int num_digits = strlen(input) - 1; // т.к. последний символ это переход на новую строку
-
 			if (num_digits != length) {
 				printf("Your number must be %d in length.\n\n", length);
 				continue; 
@@ -85,6 +84,7 @@ int main() {
 				}
 			}
 		}
+		counter -= positions;
 		if (positions == length) {
 			printf_s("\n  * You damn right! *\n");
 		}
