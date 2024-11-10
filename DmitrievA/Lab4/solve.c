@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-const int MAX_SIZE = 10000;
-const int MAX_STRING_SIZE = 20;
+#define MAX_SIZE 10000
+#define MAX_STRING_SIZE 20
 
 void flush(){
     int tc;
@@ -18,6 +18,9 @@ void flushc(char c){
 int main() {
 
     char products[MAX_SIZE][MAX_STRING_SIZE];
+    for(int i = 0; i <MAX_SIZE; i++){
+        products[i][0] = '\0';
+    }
     int costs[MAX_SIZE];
     int counts[MAX_SIZE];
     for(int i = 0; i<MAX_SIZE; i++){
@@ -167,7 +170,7 @@ int main() {
             } while (t != 1 || discount < 0 || discount > 50);
             discounts[num] = discount;
             break;
-            //считывание товара на 120 строк кода. мдааа. https://tenor.com/view/homelander-the-boys-gif-26162796
+            //считывание товара на 120 строк кода. мдааа.
 
         case 2:
             printf("Scanning product:\n ");
