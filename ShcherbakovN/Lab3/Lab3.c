@@ -2,10 +2,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-int arr_pc[5] = { -1, -1, -1, -1, -1 }, arr_user[5] = {-1, -1, -1, -1, -1};
-
 int main()
 {
+	int arr_pc[5] = { -1, -1, -1, -1, -1 }, arr_user[5] = { -1, -1, -1, -1, -1 };
 	srand(time(NULL));
 	//Determining the length of a hidden word
 	size_t n = 0;
@@ -19,14 +18,14 @@ int main()
 	//Checking for a match of numbers in a hidden word
 	for (size_t i = 0; i < n; i++) {
 
-		int rand_num = 0 + rand() % 10;
+		int rand_num = rand() % 10;
 		arr_pc[i] = rand_num;
 
 		for (size_t j = 0; j < i; j++) {
 			if (arr_pc[j] == arr_pc[i]) {
 				while (arr_pc[j] == arr_pc[i])
 				{
-					int rand_num = 0 + rand() % 10;
+					rand_num = rand() % 10;
 					arr_pc[i] = rand_num;
 				}
 				j = -1; //так как после этого идёт j++
@@ -92,9 +91,8 @@ int main()
 					if (arr_user[j] == arr_user[i])
 					{
 						flag = 1;
-					}
-					if (flag)
 						break;
+					}
 				}
 				if (flag)
 				{
