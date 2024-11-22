@@ -32,7 +32,7 @@ void shell_sort(human *mas, int len){
     }
 }
 
-void poryadok_sort(human *mas, int len){
+void radix_sort(human *mas, int len){ //поразрядная сортировка
     human *mas2 = calloc(len, sizeof(human));
     int hm[256];
     for(int i = 0; i<sizeof(int); i++){
@@ -134,7 +134,7 @@ int main(){
     human cpeople[MAX_SIZE];
     for(int i = 0; i < MAX_SIZE; i++) cpeople[i] = people[i];
     while(1){
-        printf("Choose algoritm of sort:\n1 - fast Hoar sort\n2 - poryadok sort\n3 - Shell sort\n");
+        printf("Choose algoritm of sort:\n1 - fast Hoar sort\n2 - radix sort\n3 - Shell sort\n");
         int t;
         int n;
         incorrect = 0;
@@ -154,7 +154,7 @@ int main(){
                 break;
             case 2:
                 t= clock();
-                poryadok_sort(people, count);
+                radix_sort(people, count);//поразрядная сортировка
                 t -= clock();
                 break;
             case 3:
