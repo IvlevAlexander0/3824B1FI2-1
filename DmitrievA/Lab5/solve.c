@@ -65,7 +65,7 @@ void fast_sort(human *a, int len){
     if(len <= 1){
         return;
     }
-    int i= 0;
+    int i = 0;
     int j = len-1;  
     int pivot = a[(j+i)/2].age;
     while(1){
@@ -86,21 +86,21 @@ void fast_sort(human *a, int len){
         i++;
         j--;
     }
-    fast_sort(a+(j+1), len - j -1);
-    fast_sort(a, j - 1);
+    fast_sort(a, j+1);
+    fast_sort(a+(j+1), len - j - 1);
 }
 
 int main(){
     int incorrect = 0;
     FILE *fp;
     fp = fopen("People_in.txt", "r");
-    human people[50];
-    for(int i = 0; i < 50; i++){
+    human people[MAX_SIZE];
+    for(int i = 0; i < MAX_SIZE; i++){
         people[i].name = &"";
     }
     char c = 0;
     int count = 0;
-    while (c != EOF || count == 50)
+    while (c != EOF || count == MAX_SIZE)
     {
         int n = 50;
         int i = 0;
@@ -131,9 +131,9 @@ int main(){
         count++;
     }
     fclose(fp);
-    human cpeople[MAX_SIZE];
-    for(int i = 0; i < MAX_SIZE; i++) cpeople[i] = people[i];
     while(1){
+        human cpeople[MAX_SIZE];
+        for(int i = 0; i < MAX_SIZE; i++) cpeople[i] = people[i];
         printf("Choose algoritm of sort:\n1 - fast Hoar sort\n2 - radix sort\n3 - Shell sort\n");
         int t;
         int n;
@@ -149,28 +149,28 @@ int main(){
         {
             case 1:
                 t = clock();
-                fast_sort(people, count);
-                t -= clock();
+                fast_sort(cpeople, count);
+                t = clock() - t;
                 break;
             case 2:
-                t= clock();
-                radix_sort(people, count);//поразрядная сортировка
-                t -= clock();
+                t = clock();
+                radix_sort(cpeople, count);//поразрядная сортировка
+                t = clock() - t;
                 break;
             case 3:
                 t = clock();
-                shell_sort(people, count);
-                t -= clock();
+                shell_sort(cpeople, count);
+                t = clock() - t;
                 break;
         }
         fp = fopen("People_out.txt", "w");
         for(int i = 0; i < count; i++){
-            fprintf(fp, "%s %d\n", people[i].name, people[i].age);
+            fprintf(fp, "%s %d\n", cpeople[i].name, cpeople[i].age);
         }
         fclose(fp);
         printf("Result:\n");
         for(int i = 0; i < count; i++){
-            printf("%s %d\n", people[i].name, people[i].age);
+            printf("%s %d\n", cpeople[i].name, cpeople[i].age);
         }
         printf("time of sort: %d clocks, %f secs\n", t, (double)t/CLOCKS_PER_SEC);
         printf("would yppu want to choose another sort or exit? Type C(choose another sort) or E(exit): ");
@@ -183,4 +183,5 @@ int main(){
         }while(c != 'C' && c != 'E');
         if(c == 'E') break;
     }
+    return 0;
 }
