@@ -3,27 +3,17 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#define STR_LENGTH 40
 
-int correct_memory_allocation(char* arr) //Проверка корректности выделения памяти
-{
-	if (arr == NULL)
-	{
-		printf("Memory allocation error.");
-		return -3;
-	}
-	
-	return 0;
-}
-
-int shellsort(int* arr, int size, char** str) //Сортировка Шелла
+void shellsort(int* arr, int size, char** str) //Сортировка Шелла
 {
 	int tmp, step, i, j;
 
-	char* str_extra = (char*)calloc(50, sizeof(char));
+	char* str_extra = (char*)calloc(STR_LENGTH, sizeof(char));
 	if (str_extra == NULL)
 	{
 		printf("Memory allocation error.");
-		return -3;
+		exit(EXIT_FAILURE);
 	}
 
 	for (step = size / 2; step > 0; step /= 2)
@@ -39,7 +29,6 @@ int shellsort(int* arr, int size, char** str) //Сортировка Шелла
 				strcpy(str[j + step], str_extra);
 			}
 	free(str_extra);
-	return 0;
 }
 
 int find_min_ind(int* arr, int start, int finish) //Поиск индекса минимального элемента в массиве возрастов начиная со start и до finish. start и finish - индексы массива
@@ -51,13 +40,13 @@ int find_min_ind(int* arr, int start, int finish) //Поиск индекса минимального э
 	return min_ind;
 }
 
-int selectionsort(int* arr, int size, char** str) //Сортировка "выбором"
+void selectionsort(int* arr, int size, char** str) //Сортировка "выбором"
 {
-	char* str_extra = (char*)calloc(50, sizeof(char));
+	char* str_extra = (char*)calloc(STR_LENGTH, sizeof(char));
 	if (str_extra == NULL)
 	{
 		printf("Memory allocation error.");
-		return -3;
+		exit(EXIT_FAILURE);
 	}
 
 	int min_ind, tmp;
@@ -76,18 +65,17 @@ int selectionsort(int* arr, int size, char** str) //Сортировка "выбором"
 	}
 
 	free(str_extra);
-	return 0;
 }
 
-int bubblesort(int *arr, int size, char** str) //Сортировка "пузырьком" (стандартная)
+void bubblesort(int *arr, int size, char** str) //Сортировка "пузырьком" (стандартная)
 {
 	int tmp;
 
-	char* str_extra = (char*)calloc(50, sizeof(char));
+	char* str_extra = (char*)calloc(STR_LENGTH, sizeof(char));
 	if (str_extra == NULL)
 	{
 		printf("Memory allocation error.");
-		return -3;
+		exit(EXIT_FAILURE);
 	}
 
 	for (int i = 0; i < size - 1; i++)
@@ -109,10 +97,9 @@ int bubblesort(int *arr, int size, char** str) //Сортировка "пузырьком" (стандар
 	}
 
 	free(str_extra);
-	return 0;
 }
 
-int getting_array_of_ages(int ages[]) //Формирует массив возрастов
+int count_of_strings_in_file()
 {
 	FILE* peoples = NULL;
 	peoples = fopen("People_in.txt", "r");
@@ -120,16 +107,46 @@ int getting_array_of_ages(int ages[]) //Формирует массив возрастов
 	if (peoples == NULL)
 	{
 		printf("File reading error!");
-		return -2;
+		exit(EXIT_FAILURE);
 	}
 
-	char* str = (char*)calloc(50, sizeof(char));
-	if (correct_memory_allocation(str) == -3)
-		return -3;
+	char* str = (char*)calloc(STR_LENGTH, sizeof(char));
+	if (str == NULL)
+	{
+		printf("Memory allocation error.");
+		exit(EXIT_FAILURE);
+	}
 
 	int count = 0;
+	while (fgets(str, STR_LENGTH, peoples) != NULL)
+	{
+		count++;
+	}
 
-	while (fgets(str, 50, peoples) != NULL)
+	free(str);
+	fclose(peoples);
+	return count;
+}
+
+void getting_array_of_ages(int *ages, int count) //Формирует массив возрастов
+{
+	FILE* peoples = NULL;
+	peoples = fopen("People_in.txt", "r");
+
+	if (peoples == NULL)
+	{
+		printf("File reading error!");
+		exit(EXIT_FAILURE);
+	}
+
+	char* str = (char*)calloc(STR_LENGTH, sizeof(char));
+	if (str == NULL)
+	{
+		printf("Memory allocation error.");
+		exit(EXIT_FAILURE);
+	}
+
+	for (int j = 0; j < count && fgets(str, STR_LENGTH, peoples) != NULL; j++)
 	{
 		int i = 0, age = 0;
 		while (str[i] != ' ')
@@ -142,16 +159,14 @@ int getting_array_of_ages(int ages[]) //Формирует массив возрастов
 			age = age + (str[i] - '0');
 			i++;
 		}
-		ages[count] = age;
-		count++;
+		ages[j] = age;
 	}
 
 	free(str);
 	fclose(peoples);
-	return count;
 }
 
-int filling_an_array_of_strings(char**arr, int count) //Заполняет массив строк, строками из файла
+void filling_an_array_of_strings(char**arr, int count) //Заполняет массив строк, строками из файла
 {
 	FILE* peoples = NULL;
 	peoples = fopen("People_in.txt", "r");
@@ -159,22 +174,25 @@ int filling_an_array_of_strings(char**arr, int count) //Заполняет массив строк, 
 	if (peoples == NULL)
 	{
 		printf("File reading error!");
-		return -2;
+		exit(EXIT_FAILURE);
 	}
 
-	char* str = (char*)calloc(50, sizeof(char));
-	if (correct_memory_allocation(str) == -3)
-		return -3;
+	char* str = (char*)calloc(STR_LENGTH, sizeof(char));
+	if (str == NULL)
+	{
+		printf("Memory allocation error.");
+		exit(EXIT_FAILURE);
+	}
 
 	int i = 0;
 
-	while (fgets(str, 50, peoples) != NULL && i < count)
+	while (fgets(str, STR_LENGTH, peoples) != NULL && i < count)
 	{
-		arr[i] = (char*)malloc(50 * sizeof(char));
+		arr[i] = (char*)malloc(STR_LENGTH * sizeof(char));
 		if (arr[i] == NULL)
 		{
 			printf("Memory allocation error.");
-			return -3;
+			exit(EXIT_FAILURE);
 		}
 		strcpy(arr[i], str);
 
@@ -195,10 +213,9 @@ int filling_an_array_of_strings(char**arr, int count) //Заполняет массив строк, 
 
 	free(str);
 	fclose(peoples);
-	return 0;
 }
 
-int writing_to_file(char** str, int count) //Запись отсортированного массива строк в файл
+void writing_to_file(char** str, int count) //Запись отсортированного массива строк в файл
 {
 	FILE* sorted = NULL;
 	sorted = fopen("People_out.txt", "w");
@@ -206,7 +223,7 @@ int writing_to_file(char** str, int count) //Запись отсортированного массива стр
 	if (sorted == NULL)
 	{
 		printf("File reading error!");
-		return -2;
+		exit(EXIT_FAILURE);
 	}
 
 	for (size_t i = 0; i < count; i++)
@@ -214,7 +231,7 @@ int writing_to_file(char** str, int count) //Запись отсортированного массива стр
 		if (fputs(str[i], sorted) == EOF)
 		{
 			printf("File writing error!");
-			return -4;
+			exit(EXIT_FAILURE);
 		}
 
 		//Делаем переход на новую стрку:
@@ -223,25 +240,12 @@ int writing_to_file(char** str, int count) //Запись отсортированного массива стр
 			if (fputc('\n', sorted) == EOF)
 			{
 				printf("File writing error!");
-				return -4;
+				exit(EXIT_FAILURE);
 			}
 		}
 	}
 
 	fclose(sorted);
-	return 0;
-}
-
-void print_ages_and_strings(int count, int* ages, char** str)
-{
-	for (size_t i = 0; i < count; i++)
-	{
-		printf("Age %zu:%d\n", i+1, ages[i]);
-	}
-	for (size_t i = 0; i < count; i++)
-	{
-		printf("String %zu: %s\n", i+1, str[i]);
-	}
 }
 
 void print_strings(int count, char** str)
@@ -255,66 +259,44 @@ void print_strings(int count, char** str)
 
 int main()
 {
-	int* ages = (int*)calloc(50, sizeof(int));
+	int count = count_of_strings_in_file();
+	//printf("%d", count);
+
+	int* ages = (int*)calloc(count, sizeof(int));
 	if (ages == NULL)
 	{
 		printf("Memory allocation error.");
-		return -3;
+		exit(EXIT_FAILURE);
 	}
 
-	int count = getting_array_of_ages(ages);
-
-	if (count == -2)
-	{
-		return -2;
-	}
-	else if (count == -3)
-	{
-		return -3;
-	}
+	getting_array_of_ages(ages, count);
 
 	char**str = (char**)malloc(count * sizeof(char*)); // Массив указателей (для строк из файла). Но сами указатели неопределены(в filling_an_array_of_strings для них выделяется память)
 	if (str == NULL)
 	{
 		printf("Memory allocation error.");
-		return -3;
+		exit(EXIT_FAILURE);
 	}
-
-	int answer = 0;
 
 	while (1)
 	{
-		int count = getting_array_of_ages(ages);
-		if (count == -2)
-		{
-			return -2;
-		}
-		else if (count == -3)
-		{
-			return -3;
-		}
+		count = count_of_strings_in_file();
+		getting_array_of_ages(ages, count);
 
 		filling_an_array_of_strings(str, count); //Ещё и count передаём, чтобы точно быть уверенными, что не выделится лишняя память в функции
 
-		//print_ages_and_strings(count, ages, str);
 		print_strings(count, str);
 
-		int sort_method = 0, ref = 0;
+		int sort_method = 0, answer = 0;
 		clock_t t;
 
 		printf("Hello, select the sorting method (1 - bubble_sort, 2 - shell_sort, 3 - selection_sort):\n");
-		char c;
-		while ((c = getchar()) != '\n' && c != EOF)
+		while (scanf("%d", &sort_method) != 1 || (sort_method != 1 && sort_method != 2 && sort_method != 3))
 		{
-			;
-		}
-		while ((sort_method = getchar() - '0') != 1 && sort_method != 2 && sort_method != 3)
-		{
-			while ((c = getchar()) != '\n' && c != EOF)
+			while ((sort_method = getchar()) != '\n' && sort_method != EOF)
 			{
 				;
 			}
-			printf("Error. Enter the correct value:\n");
 		}
 
 		switch (sort_method)
@@ -322,56 +304,37 @@ int main()
 		case 1:
 			printf("=====Bubble_sort=====\n");
 			t = clock();
-			if (bubblesort(ages, count, str) == -3)
-				return -3;
+			bubblesort(ages, count, str);
 			printf("Sorting time:%.6lf\n", (double)((clock() - t) / CLOCKS_PER_SEC));
-			ref = 0;
-			if (ref = writing_to_file(str, count) == -2)
-				return -2;
-			if (ref == -4)
-				return -4;
+			writing_to_file(str, count);
 			break;
 		case 2:
 			printf("=====Shell_sort=====\n");
 			t = clock();
-			if (shellsort(ages, count, str) == -3)
-				return -3;
+			shellsort(ages, count, str);
 			printf("Sorting time:%.6lf\n", (double)((clock() - t) / CLOCKS_PER_SEC));
-			ref = 0;
-			if (ref = writing_to_file(str, count) == -2)
-				return -2;
-			if (ref == -4)
-				return -4;
+			writing_to_file(str, count);
 			break;
 		case 3:
 			printf("=====Selection_sort=====\n");
 			t = clock();
-			if (selectionsort(ages, count, str) == -3)
-				return -3;
+			selectionsort(ages, count, str);
 			printf("Sorting time:%.6lf\n", (double)((clock() - t) / CLOCKS_PER_SEC));
-			ref = 0;
-			if (ref = writing_to_file(str, count) == -2)
-				return -2;
-			if (ref == -4)
-				return -4;
+			writing_to_file(str, count);
 			break;
 		}
 
-		//print_ages_and_strings(count, ages, str);
 		print_strings(count, str);
 
 		printf("What do you want: 1 - end the program, 2 - sort again:\n");
-		while ((c = getchar()) != '\n' && c != EOF)
-		{
+		while ((answer = getchar()) != '\n' && answer != EOF)
 			;
-		}
-		while ((answer = getchar() - '0') != 1 && answer != 2)
+		while (scanf("%d", &answer) != 1 || (answer != 1 && answer != 2))
 		{
-			while ((c = getchar()) != '\n' && c != EOF)
+			while ((answer = getchar()) != '\n' && answer != EOF)
 			{
 				;
 			}
-			printf("Error. Enter the correct value:\n");
 		}
 
 		//Очистка выделенной памяти под строки:
@@ -379,15 +342,10 @@ int main()
 			free(str[i]);
 
 		if (answer == 1)
-			break;
-		if (answer == 2)
-			continue;
+			exit(EXIT_SUCCESS);
 	}
 
 	//Очистка выделенной памяти:
-
 	free(str);
 	free(ages);
-	if (answer == 1)
-		return 0;
 }
