@@ -56,7 +56,7 @@ int main() {
 		double t = (double)(clock() - time) / CLOCKS_PER_SEC;
 		FILE* out = fopen("People_out.txt", "w");
 		for (int i = 0; i < num_of_people - 1; ++i) {
-			//printf("%d. %s %d\n", i + 1, people_tmp[i].name, people_tmp[i].age);
+			printf("%d. %s %d\n", i + 1, people_tmp[i].name, people_tmp[i].age);
 			fprintf(out, "%s %d\n", people_tmp[i].name, people_tmp[i].age);
 		}
 		printf("%d. %s %d\n", num_of_people, people_tmp[num_of_people - 1].name, people_tmp[num_of_people - 1].age);
