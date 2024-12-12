@@ -1,10 +1,13 @@
 Den 85
 Louis 73
-George 51
-Charles 49
+Fred 41
 Vladimir 38
 Victor 38
 Fred 34
+John 34
+Alice 29
 Oleg 26
 Alex 23
+Sarah 22
+Richard 17
 Olga 15

@@ -6,5 +6,8 @@ Victor 38
 Oleg 26
 Louis 73
 Fred 34
-Charles 49
-George 51
+Richard 17 
+Fred 41 
+Alice 29 
+John 34 
+Sarah 22
