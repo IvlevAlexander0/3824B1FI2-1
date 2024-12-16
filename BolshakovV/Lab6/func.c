@@ -2,73 +2,60 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-unsigned long long factorial(int n)
-{
-	unsigned long long result = 1;
-	if (n == 1) {
-		result = 1;
-	}
-	if (n == 0) {
-		result = 1;
-	}
-	for (size_t i = 1; i <= n; i++) {
-		result *= i;
-	}
-	return result;
-}
-
 double maclor_sin(double x, double toch, int N, int* count)
 {
-	double tec; //tecushiy element
-	double sum = 0.0;
-	int index = 0;
-	*count = 0;
-	do {
-		tec = (index % 2 == 0 ? 1 : -1) * (pow(x, 2 * index + 1) / factorial(2 * index + 1));
+	double sum = x;
+	double tec = x;
+	*count = 1;
+	for (int index = 1; index < N; index++) {
+
+		tec *= -x * x / ((2 * index) * (2 * index + 1));
 		sum += tec;
-		index++;
 		(*count)++;
-	} while ((fabs(tec) > toch && index < N));
+		if (fabs(tec) < toch) {
+			break;
+		}
+	}
 	return sum;
+
 }
 
 double maclor_cos(double x, double toch, int N, int* count)
 {
-	double tec;
-	double sum = 0.0;
-	int index = 0;
-	*count = 0;
-	do {
-
-		tec = (index % 2 == 0 ? 1 : -1) * (pow(x, 2 * index) / factorial(2 * index));
+	double sum = 1.0;
+	double tec = 1.0;
+	*count = 1;
+	for (int index = 1; index < N; index++) {
+		tec *= -x * x / ((2 * index - 1) * (2 * index));
 		sum += tec;
-		index++;
 		(*count)++;
-	} while ((fabs(tec) > toch && index < N));
+		if (fabs(tec) < toch) {
+			break;
+		}
+	}
 	return sum;
+
 }
 
 double maclor_exp(double x, double toch, int N, int* count)
 {
-	double tec;
-	double sum = 0.0;
-	int index = 0;
-	*count = 0;
-	do {
-
-		tec = (pow(x, index) / factorial(index));
+	double sum = 1;
+	double tec = 1;
+	*count = 1;
+	for (int index = 1; index < N; index++) {
+		tec *= x / index;
 		sum += tec;
-		index++;
 		(*count)++;
-	} while ((fabs(tec) > toch && index < N));
+		if (fabs(tec) < toch) {
+			break;
+		}
+	}
 	return sum;
 }
 
 double maclor_arct(double x, double toch, int N, int* count) {
-	double sum = 0.0, tec;
-	int index = 0;
-	*count = 0;
-
+	double sum = x, tec = x;
+	*count = 1;
 	if (fabs(x) > 1) {
 		if (x > 1) {
 			x = 1 / x;
@@ -79,12 +66,40 @@ double maclor_arct(double x, double toch, int N, int* count) {
 			sum = -M_PI / 2;
 		}
 	}
-
-	do {
-		tec = (pow(-1, index) * pow(x, 2 * index + 1)) / (2 * index + 1);
+	for (int index = 1; index < N; index++) {
+		tec *= -x * x / (index * 2 + 1);
 		sum += tec;
-		index++;
 		(*count)++;
-	} while (fabs(tec) > toch && index < N);
+		if (fabs(tec) < toch) {
+			break;
+		}
+	}
 	return sum;
+}
+
+typedef double(*maclor_func)(double, double, int, int*); //noviy tip - ycazatel na funkciu
+
+void vivod(maclor_func func, double x, double toch, int NMax, int* count) // func - ycazatel na funkciu
+{
+	double(*etalon)(double);
+	etalon = func;
+	if (func == maclor_sin) {
+		etalon = sin;
+	}
+	else if (func == maclor_cos) {
+		etalon = cos;
+	}
+	else if (func == maclor_exp) {
+		etalon = exp;
+	}
+	else if (func == maclor_arct) {
+		etalon = atan;
+	}
+
+	printf("|The number of terms |   Calculated value   | The difference between the calculated and reference values |\n");
+	for (int i = 1; i <= NMax; i++) {
+		double result = func(x, toch, i, &count);
+		double result1 = fabs(result - etalon(x));
+		printf("|%20.d|%22.10lf|%60.10lf|\n", i, result, result1);
+	}
 }

@@ -21,15 +21,9 @@
     <ClCompile Include="func.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="func2.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="func.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="func2.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

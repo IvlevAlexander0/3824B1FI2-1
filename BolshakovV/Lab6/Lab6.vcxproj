@@ -129,12 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="func.c" />
-    <ClCompile Include="func2.c" />
     <ClCompile Include="Source.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="func.h" />
-    <ClInclude Include="func2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
