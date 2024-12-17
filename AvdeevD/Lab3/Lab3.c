@@ -16,7 +16,6 @@ int countofn() {
 	}
 	return n;
 }
-
 void main()
 {
 	srand(time(NULL));
@@ -67,14 +66,46 @@ void main()
 	char c;
 	printf("You're playing a game called 'bulls and cows'. The number is already made.\n");
 	printf("Try to guess it (all digits are different).");
-	
+	int check = 0;
 	while (1) {
+		int ch;
+		check = 0;
 		count = 0;
+		int countofnums = 0, countofreps = 0;
 		bulls = 0;
 		cows = 0;
+		int masforreps[] = { -1, -1, -1, -1, -1 };
 		printf("Take a guess: ");
 		while ((c = getchar()) != '\n') {
 			ci = (int)(c)-48;
+			if (countofnums == 0 && ci == 0) {
+				printf("Incorrect first number, try another.\n");
+				check = 1;
+			}
+			else if (countofnums < n2) {
+				masforreps[countofnums] = ci;
+			}
+			else
+			{
+				printf("You've entered too many numbers.\n");
+				check = 1;
+			}
+			countofnums++;
+			if (countofnums == n2) {
+				for (int i = 0; i < countofnums - 1; i++) {
+					for (int j = i + 1; j < countofnums; j++) {
+						/*printf("%d\t%d\t%d\n", countofnums, masforreps[i], masforreps[j]);*/
+						if (masforreps[i] == masforreps[j]) {
+							printf("You've entered repeating numbers, try again.\n");
+							check = 1;
+							break;
+						}
+					}
+					if (check == 1) {
+						break;
+					}
+				}
+			}
 			for (int i = 0; i < n2; i++) {
 				if (ci == fullnum[i]) {
 					if (count == i) {
@@ -91,7 +122,7 @@ void main()
 			printf("Congratulations! You won!\n");
 			break;
 		}
-		else {
+		else if (check == 0) {
 			printf("Number of cows: %d, number of bulls: %d.\n", cows, bulls);
 		}
 	}
