@@ -1,16 +1,6 @@
 ﻿#define _USE_MATH_DEFINES
 #include <stdio.h>
 #include <math.h>
-unsigned long long fact(int n) {
-    if (n == 0 || n == 1) {
-        return 1;
-    }
-    unsigned long long result = 1;
-    for (int i = 2; i <= n; i++) {
-        result *= i;
-    }
-    return result;
-}
 double augmentation(double x) { //Уменьшение аргумента x для работы с большими числами в тригонометрии
     while (fabs(x) > 2 * M_PI) {
         if (x > 0) {
@@ -23,25 +13,28 @@ double augmentation(double x) { //Уменьшение аргумента x дл
     return x;
 }
 double sinTaylor(double x, int n) {
-    double sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += pow(-1, i) * pow(x, 2 * i + 1) / fact(2 * i + 1);
+    double sum = 0,multipier=x;
+    for (int i = 1; i <= n; i++) {
+        sum += multipier;
+        multipier *= (-1) * pow(x, 2) / (2 * i * (2*i + 1));
     }
     return sum;
 }
 
 double cosTaylor(double x, int n) {
-    double sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += pow(-1, i) * pow(x, 2 * i) / fact(2 * i);
+    double sum = 1,multipier =1;
+    for (int i = 1; i <= n; i++) {
+        multipier *= (-1) * pow(x, 2) / (2 * i * (2 * i - 1));
+        sum += multipier;
     }
     return sum;
 }
 
 double expTaylor(double x, int n) {
-    double sum = 0;
-    for (int i = 0; i < n; i++) {
-        sum += pow(x, i) / fact(i);
+    double sum = 1,multipier =1;
+    for (int i = 1; i <= n; i++) {
+        multipier *= x / i;
+        sum += multipier;
     }
     return sum;
 }
