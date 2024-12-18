@@ -84,6 +84,18 @@ void print_product(Product p) {
         p.barcode, p.name, p.price, p.discount, p.quantity);
 }
 
+// Функция для сравнения двух строк
+int are_strings_equal(const char* str1, const char* str2) {
+    while (*str1 && *str2) {
+        if (*str1 != *str2) {
+            return 0; // Строки не равны
+        }
+        str1++;
+        str2++;
+    }
+    return (*str1 == '\0' && *str2 == '\0'); // Проверяем, что обе строки закончились
+}
+
 // Функция для добавления товара в чек
 void add_to_receipt(Receipt* receipt, const char* barcode, int quantity) {
     Product* p = find_product(barcode);
@@ -99,13 +111,14 @@ void add_to_receipt(Receipt* receipt, const char* barcode, int quantity) {
     }
 
     for (int i = 0; i < receipt->count; i++) {
-        if (strcmp(receipt->items[i].barcode, barcode) == 0) {
+        if (are_strings_equal(receipt->items[i].barcode, barcode)) {
             receipt->items[i].quantity += quantity;
             printf("The quantity of product \"%s\" has been updated to %d.\n",
-                p->name, receipt->items[i].quantity);
+                receipt->items[i].name, receipt->items[i].quantity);
             return;
         }
     }
+
 
     if (receipt->count < MAX_PRODUCTS) {
         receipt->items[receipt->count] = *p;
