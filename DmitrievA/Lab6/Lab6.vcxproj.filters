@@ -15,27 +15,27 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\solve.c">
+    <ClCompile Include="exp.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\arcsin.c">
+    <ClCompile Include="sin_cos.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\exp.c">
+    <ClCompile Include="solve.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\sin_cos.c">
+    <ClCompile Include="arcsin.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\exp.h">
+    <ClInclude Include="arcsin.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\arcsin.h">
+    <ClInclude Include="exp.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\sin_cos.h">
+    <ClInclude Include="sin_cos.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

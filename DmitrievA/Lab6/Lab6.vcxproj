@@ -18,6 +18,17 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="arcsin.c" />
+    <ClCompile Include="exp.c" />
+    <ClCompile Include="sin_cos.c" />
+    <ClCompile Include="solve.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="arcsin.h" />
+    <ClInclude Include="exp.h" />
+    <ClInclude Include="sin_cos.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -128,17 +139,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\arcsin.c" />
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\exp.c" />
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\sin_cos.c" />
-    <ClCompile Include="C:\Users\ndmit\Desktop\Lab6\solve.c" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\arcsin.h" />
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\exp.h" />
-    <ClInclude Include="C:\Users\ndmit\Desktop\Lab6\sin_cos.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
