@@ -64,6 +64,17 @@ void countBullsAndCows(int secret[], int guess[], int lenght, int* bulls, int* c
         }
     }
 
+    //Альтернативный способ счета коров
+//    for (int i = 0; i < 10; i++) {
+//        if (secretDigits[i] < guessDigits[i]) {
+//            *cows += secretDigits[i];
+//        }
+//        else {
+//            *cows += guessDigits[i];
+//        }
+//    }
+//}
+
     // Считаем коров
     for (int i = 0; i < 10; i++) {
         *cows += (secretDigits[i] < (guessDigits[i]) ? secretDigits[i] : guessDigits[i]); // Сокращённый способ записи условного оператора if (условие ? выражение1 : выражение2;) 
