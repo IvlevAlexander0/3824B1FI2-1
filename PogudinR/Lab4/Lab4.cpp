@@ -19,30 +19,63 @@ typedef struct {
     int count;       // Количество различных товаров в чеке
 } Receipt;
 
-// Функция для ввода товара
-Product scan_product() {
-    Product p;
+// Предустановленный список товаров
+Product product_list[MAX_PRODUCTS] = {
+    {"1001", "Milk", 50, 10, 0},
+    {"1002", "Bread", 30, 5, 0},
+    {"1003", "Butter", 150, 15, 0},
+    {"1004", "Cheese", 200, 20, 0},
+    {"1005", "Eggs", 70, 0, 0}
+};
+int product_count = 5; // Количество товаров в памяти
 
+// Функция для поиска товара по штрих-коду
+Product* find_product(const char* barcode) {
+    for (int i = 0; i < product_count; i++) {
+        if (strcmp(product_list[i].barcode, barcode) == 0) {
+            return &product_list[i];
+        }
+    }
+    return NULL; // Если товар не найден
+}
+
+// Функция для добавления нового товара
+void add_product() {
+    if (product_count >= MAX_PRODUCTS) {
+        printf("Error! No more products can be added.\n");
+        return;
+    }
+
+    Product p;
     printf("Enter the product barcode (4 digits): ");
     scanf("%4s", p.barcode);
 
+    if (find_product(p.barcode)) {
+        printf("Error! A product with this barcode already exists.\n");
+        return;
+    }
+
     printf("Enter the product name: ");
-    scanf(" %[^\n]s", p.name); // Считываем строку с пробелами
+    scanf(" %[^\n]", p.name);
 
     printf("Enter the product price (rubles): ");
     scanf("%d", &p.price);
 
     do {
         printf("Enter the product discount (1-50%%): ");
-        scanf("%d", &p.discount);
+        if (scanf("%d", &p.discount) != 1) {
+            while (getchar() != '\n'); // Очистка буфера
+            printf("Invalid input. Please enter a valid discount.\n");
+            continue;
+        }
         if (p.discount < 1 || p.discount > 50)
             printf("Error! The discount must be between 1 and 50%%.\n");
     } while (p.discount < 1 || p.discount > 50);
 
-    printf("Enter the product quantity: ");
-    scanf("%d", &p.quantity);
+    p.quantity = 0; // Изначально количество равно 0
 
-    return p;
+    product_list[product_count++] = p;
+    printf("Product \"%s\" has been added successfully.\n", p.name);
 }
 
 // Функция для вывода информации о товаре
@@ -52,21 +85,33 @@ void print_product(Product p) {
 }
 
 // Функция для добавления товара в чек
-void add_to_receipt(Receipt* receipt, Product p) {
-    // Проверяем, не добавляли ли мы этот товар ранее
+void add_to_receipt(Receipt* receipt, const char* barcode, int quantity) {
+    Product* p = find_product(barcode);
+
+    if (!p) {
+        printf("Error! Product with barcode %s not found.\n", barcode);
+        return;
+    }
+
+    if (quantity <= 0) {
+        printf("Error! Quantity must be greater than zero.\n");
+        return;
+    }
+
     for (int i = 0; i < receipt->count; i++) {
-        if (strcmp(receipt->items[i].barcode, p.barcode) == 0) {
-            // Товар уже есть, обновляем количество
-            receipt->items[i].quantity += p.quantity;
-            printf("The quantity of product \"%s\" has been updated to %d.\n", p.name, receipt->items[i].quantity);
+        if (strcmp(receipt->items[i].barcode, barcode) == 0) {
+            receipt->items[i].quantity += quantity;
+            printf("The quantity of product \"%s\" has been updated to %d.\n",
+                p->name, receipt->items[i].quantity);
             return;
         }
     }
 
-    // Добавляем новый товар в чек
     if (receipt->count < MAX_PRODUCTS) {
-        receipt->items[receipt->count++] = p;
-        printf("Product \"%s\" has been added to the receipt.\n", p.name);
+        receipt->items[receipt->count] = *p;
+        receipt->items[receipt->count].quantity = quantity;
+        receipt->count++;
+        printf("Product \"%s\" has been added to the receipt.\n", p->name);
     }
     else {
         printf("Error! No more products can be added to the receipt.\n");
@@ -103,13 +148,12 @@ void print_receipt(Receipt receipt) {
 // Главная функция
 int main() {
     Receipt receipt = { {0}, 0 }; // Инициализация чека
-    Product current_product;    // Текущий отсканированный товар
     int choice;
 
     do {
         printf("\nSelect an operation:\n");
-        printf("1. Scan a product\n");
-        printf("2. Display product information\n");
+        printf("1. Add a new product\n");
+        printf("2. Display all products\n");
         printf("3. Add product to receipt\n");
         printf("4. Generate receipt\n");
         printf("5. Exit\n");
@@ -118,16 +162,24 @@ int main() {
 
         switch (choice) {
         case 1:
-            current_product = scan_product();
-            printf("Product scanned!\n");
+            add_product();
             break;
         case 2:
-            printf("Product information:\n");
-            print_product(current_product);
+            printf("\nAvailable products:\n");
+            for (int i = 0; i < product_count; i++) {
+                print_product(product_list[i]);
+            }
             break;
-        case 3:
-            add_to_receipt(&receipt, current_product);
+        case 3: {
+            char barcode[5];
+            int quantity;
+            printf("Enter the product barcode: ");
+            scanf("%4s", barcode);
+            printf("Enter the quantity: ");
+            scanf("%d", &quantity);
+            add_to_receipt(&receipt, barcode, quantity);
             break;
+        }
         case 4:
             print_receipt(receipt);
             break;
