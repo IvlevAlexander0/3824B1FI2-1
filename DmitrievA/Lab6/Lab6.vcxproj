@@ -19,15 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="arcsin.c" />
-    <ClCompile Include="exp.c" />
-    <ClCompile Include="sin_cos.c" />
+    <ClCompile Include="functions.c" />
     <ClCompile Include="solve.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="arcsin.h" />
-    <ClInclude Include="exp.h" />
-    <ClInclude Include="sin_cos.h" />
+    <ClInclude Include="functions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

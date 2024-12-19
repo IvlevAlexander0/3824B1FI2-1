@@ -3,9 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "arcsin.h"
-#include "sin_cos.h"
-#include "exp.h"
+#include "functions.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 long double (*func[4])(long double, int*, long double) = { lab_sin, lab_cos, lab_exp, lab_arcsin};
@@ -46,11 +44,11 @@ int main() {
     long double point;
     incorrect = 0;
     do {
-        if (incorrect) { printf("Input float number up to 19 digits: "); }
+        if (incorrect) { printf("Input float number between -1 and 1: "); }
         t = scanf("%Lf", &point);
         flush();
         incorrect = 1;
-    } while (t != 1 && (ans2 == 4 && (point < -1 || point > 1)));
+    } while (t != 1 || (ans2 == 3 && (point < -1 || point > 1)));
     switch (ans)
     {
         long double res;
