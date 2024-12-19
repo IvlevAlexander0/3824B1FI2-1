@@ -61,7 +61,7 @@ void mode_2() {
     do {
         mid = (low + high) / 2;
         printf("The program guesses: %d. Is your number >, <, or =? ", mid);
-        scanf_s(" %c", &response, 1); 
+        scanf_s(" %c", &response, 1);
 
         attempts++;
 
